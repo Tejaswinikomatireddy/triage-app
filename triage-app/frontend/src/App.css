@@ -1,0 +1,202 @@
+* { box-sizing: border-box; }
+
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px 60px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #1a1a1a;
+}
+
+.cold-start-note {
+  font-size: 0.75rem;
+  color: #999;
+}
+
+.lang-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.lang-btn {
+  background: #eee;
+  color: #333;
+  padding: 5px 12px;
+  font-size: 0.8rem;
+  border-radius: 20px;
+}
+.lang-btn.active {
+  background: #1a73e8;
+  color: white;
+}
+
+.header { text-align: center; margin-bottom: 24px; }
+.header h1 { font-size: 1.8rem; margin-bottom: 4px; }
+.header p { color: #555; margin: 0; }
+
+.layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 800px) {
+  .layout { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.form-card h2, .result-card h2 { margin-top: 0; font-size: 1.2rem; }
+.form-card h3 { margin: 18px 0 8px; font-size: 1rem; color: #333; }
+.danger-heading { color: #c62828; }
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 10px;
+  gap: 4px;
+}
+
+input[type="number"], select {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 14px;
+}
+
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 6px 10px;
+  margin-bottom: 10px;
+}
+.checkbox-grid.danger {
+  background: #fff4f4;
+  border: 1px solid #f3c2c2;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.checkbox {
+  flex-direction: row;
+  align-items: center;
+  font-weight: 400;
+  font-size: 0.85rem;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.checkbox input { width: 16px; height: 16px; }
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #1a73e8;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+button:disabled { opacity: 0.6; cursor: not-allowed; }
+button.secondary { background: #eee; color: #333; }
+
+.result-card { position: sticky; top: 20px; height: fit-content; }
+.placeholder { color: #888; font-size: 0.9rem; }
+.error { color: #c62828; font-weight: 600; }
+
+.urgency-badge {
+  color: white;
+  font-weight: 700;
+  font-size: 1.3rem;
+  text-align: center;
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+.decision-source { margin-bottom: 14px; }
+.badge {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+.badge-rule { background: #fff0f0; color: #b71c1c; border: 1px solid #f3b3b3; }
+.badge-model { background: #eef4ff; color: #1a4fb0; border: 1px solid #b9cdf5; }
+
+.connectivity-note {
+  font-size: 0.78rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.range-value { font-weight: 400; font-size: 0.8rem; color: #666; }
+input[type="range"] { width: 100%; }
+
+.probs { margin-bottom: 16px; }
+.prob-row {
+  display: grid;
+  grid-template-columns: 70px 1fr 40px;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+.prob-bar-bg {
+  background: #eee;
+  border-radius: 6px;
+  height: 10px;
+  overflow: hidden;
+}
+.prob-bar { height: 100%; }
+
+.factors { margin-bottom: 16px; font-size: 0.9rem; }
+.factors ul { margin: 6px 0 0; padding-left: 20px; }
+
+.explanation {
+  background: #f5f8ff;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+.explanation p { margin: 6px 0 0; }
+
+.disclaimer {
+  font-size: 0.75rem;
+  color: #888;
+  font-style: italic;
+}
+
+/* Mobile overrides — kept at the end of the file so these rules win the
+   cascade over the base .grid-2 / .checkbox-grid / .card rules above,
+   which share the same specificity. */
+@media (max-width: 500px) {
+  .app { padding: 16px 10px 40px; }
+  .header h1 { font-size: 1.4rem; }
+  .checkbox-grid { grid-template-columns: 1fr 1fr; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .card { padding: 14px; }
+}
