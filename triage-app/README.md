@@ -5,8 +5,8 @@
 Built for Idea2Impact 2026 — Theme 3: Crisis Management, HealthTech & Emergency Response.
 
 ## Live Demo
-- **Frontend:** *(link added after deployment)*
-- **Backend API:** *(link added after deployment)*
+- **Frontend:** https://triage-app-two.vercel.app
+- **Backend API:** https://rural-triage-assistant.onrender.com
 - **Demo Video:** *(link added after recording)*
 
 ## Key Features
@@ -36,26 +36,25 @@ Most existing digital health tools assume constant connectivity, real-time docto
 ---
 
 ## Architecture
-
 ```
-                     ┌─────────────────────────┐
-   Patient vitals +  │   Random Forest          │   Urgency: Low / Medium /
-   symptoms/flags ──▶│   Classifier              │──▶   Critical (model's view)
-                     │   (trained on real data)  │
-                     └─────────────────────────┘
-                                  │
-                                  ▼
-                     ┌─────────────────────────┐
-   Danger flags ────▶│   Safety Rule Engine      │──▶  Overrides to Critical
-   (bleeding, LOC,    │   (deterministic)         │      if any red flag present,
-   SpO2<88%, etc.)    └─────────────────────────┘      regardless of ML output
-                                  │
-                                  ▼
-                     ┌─────────────────────────┐
-                     │   LLM Explanation Layer   │──▶  Plain-language guidance
-                     │   (optional, has offline   │      for the health worker
-                     │    fallback)               │
-                     └─────────────────────────┘
+┌─────────────────────────┐
+Patient vitals +  │   Random Forest          │   Urgency: Low / Medium /
+symptoms/flags ──▶│   Classifier              │──▶   Critical (model's view)
+│   (trained on real data)  │
+└─────────────────────────┘
+│
+▼
+┌─────────────────────────┐
+Danger flags ────▶│   Safety Rule Engine      │──▶  Overrides to Critical
+(bleeding, LOC,    │   (deterministic)         │      if any red flag present,
+SpO2<88%, etc.)    └─────────────────────────┘      regardless of ML output
+│
+▼
+┌─────────────────────────┐
+│   LLM Explanation Layer   │──▶  Plain-language guidance
+│   (optional, has offline   │      for the health worker
+│    fallback)               │
+└─────────────────────────┘
 ```
 
 **Why this design?** Healthcare decision-support systems in practice rarely trust a single ML model end-to-end. Splitting responsibilities this way means:
@@ -89,14 +88,10 @@ On a held-out 20% test split (3,600 patients):
 - **Recall on Critical cases is 95%** — of 718 true-critical patients in the test set, only 2 were missed to "Low" (the other 37 misclassifications landed on "Medium," a much safer miss).
 - Those 2 near-misses are exactly the kind of rare edge case the **Safety Rule Engine** exists to catch independently of the model — a patient with severe bleeding or SpO2 < 88% is flagged Critical regardless of what the classifier says.
 - Confusion matrix (rows = actual, columns = predicted; order Critical/Low/Medium):
-
-```
-              Critical   Low   Medium
+Critical   Low   Medium
 Critical         679      2      37
 Low                0   1931      54
 Medium            23     89     785
-```
-
 Retraining code: [`model/train_model.py`](model/train_model.py). Dataset: [`data/triage_dataset.csv`](data/triage_dataset.csv).
 
 ---
@@ -125,23 +120,22 @@ Retraining code: [`model/train_model.py`](model/train_model.py). Dataset: [`data
 ---
 
 ## Project Structure
-
 ```
 backend/            FastAPI service: model inference, safety rules, LLM layer
-  main.py
-  requirements.txt
+main.py
+requirements.txt
 frontend/            React app (Vite)
-  src/
-    App.jsx
-    App.css
-    translations.js  English / Telugu / Hindi strings
+src/
+App.jsx
+App.css
+translations.js  English / Telugu / Hindi strings
 model/
-  train_model.py     Retraining script
-  triage_model.joblib
+train_model.py     Retraining script
+triage_model.joblib
 data/
-  triage_dataset.csv  Kaggle Synthetic Medical Triage Priority Dataset
+triage_dataset.csv  Kaggle Synthetic Medical Triage Priority Dataset
 assets/
-  screenshots/
+screenshots/
 Procfile              Render start command
 requirements.txt      Root-level, mirrors backend/requirements.txt for Render auto-detect
 .env.example
