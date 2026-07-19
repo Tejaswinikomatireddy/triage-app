@@ -7,7 +7,7 @@ Built for Idea2Impact 2026 — Theme 3: Crisis Management, HealthTech & Emergenc
 ## Live Demo
 - **Frontend:** https://triage-app-two.vercel.app
 - **Backend API:** https://rural-triage-assistant.onrender.com
-- **Demo Video:** *(link added after recording)*
+- **Demo Video:** https://drive.google.com/file/d/1aGD9eaTY5mj15pAR50SAfa_kPSSqcySG/view?usp=sharing
 
 ## Key Features
 ✅ Random Forest triage model — trained on a real public dataset, 94% accuracy, 95% recall on Critical cases
